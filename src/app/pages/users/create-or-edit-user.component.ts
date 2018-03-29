@@ -93,15 +93,6 @@ export class CreateOrEditUserComponent extends ModalComponentBase implements OnI
                     options.push({ label: this.l(item.roleDisplayName), value: item.roleName, checked: item.isAssigned });
                 });
 
-                // let i = 0;
-                // options.forEach(item => {
-                //     for (i = 0; i < result.roles.length; i++)
-                //         if (item.value === result.roles[i].roleName) {
-                //             item.checked = true;
-                //             break;
-                //         }
-                // });
-
                 this.roleOptions = options;
             });
     }
