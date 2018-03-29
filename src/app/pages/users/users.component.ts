@@ -1,22 +1,22 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { ModalHelper } from '@shared/helpers/modal.helper';
 import { PagedListingComponentBase, PagedRequestDto } from "shared/component-base";
-import { UserServiceProxy, IUserDto, UserDto, CreateUserDto, RoleDto, PagedResultDtoOfUserDto } from '@shared/service-proxies/service-proxies';
+import { UserServiceProxy, PagedResultDtoOfUserListDto, UserListDto, EntityDtoOfInt64 } from '@shared/service-proxies/service-proxies';
 
-import { CreateUserComponent } from "./create-user/create-user.component";
-import { EditUserComponent } from "./edit-user/edit-user.component";
+import { CreateOrEditUserComponent } from '@app/pages/users/create-or-edit-user.component';
+import { AppConsts } from '@shared/AppConsts';
 
 @Component({
-    templateUrl: './users.component.html'
+	templateUrl: './users.component.html'
 })
-export class UsersComponent extends PagedListingComponentBase<UserDto> {
+export class UsersComponent extends PagedListingComponentBase<UserListDto> {
 
 	loading = false;
-	dataItems: UserDto[] = [];
+	dataItems: UserListDto[] = [];
 
-    constructor(
+	constructor(
 		private injector: Injector,
-		private userService: UserServiceProxy,
+		private _userService: UserServiceProxy,
 		private modalHelper: ModalHelper
 	) {
 		super(injector);
@@ -25,23 +25,31 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
 	list(request: PagedRequestDto, pageNumber: number, finishedCallback: Function): void {
 		this.loading = true;
 
-		this.userService.getAll(request.skipCount, request.maxResultCount)
+		this._userService.getUsers(undefined, undefined, undefined, undefined, request.maxResultCount, request.skipCount)
 			.finally(() => {
 				finishedCallback();
 				this.loading = false;
 			})
-			.subscribe((result: PagedResultDtoOfUserDto) => {
+			.subscribe((result) => {
 				this.dataItems = result.items;
-				this.showPaging(result, pageNumber);
+				//this.showPaging(result, pageNumber);
 			});
+		this.permission.isGranted("");
+		this.appSession.user
 	}
 
-	delete(user: UserDto): void {
+
+	loginAsThisUser(user: UserListDto): void {
+		alert('暂未实现');
+	}
+
+	delete(user: UserListDto): void {
 		this.message.confirm(
-			"Delete user '" + user.fullName + "'?",
+			"Delete user '" + user.name + user.surname + "'?",
 			(result: boolean) => {
 				if (result) {
-					this.userService.delete(user.id)
+					this.l
+					this._userService.deleteUser(user.id)
 						.finally(() => {
 							this.notify.info("Deleted User: " + user.name);
 							this.refresh();
@@ -52,11 +60,47 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
 		);
 	}
 
-	create(): void {
-		this.modalHelper.open(CreateUserComponent).subscribe(res => this.refresh());
+	createUser(): void {
+		this.modalHelper.open(CreateOrEditUserComponent, { isEdit: false }).subscribe(res => { 
+			this.refresh();
+		});
 	}
 
-	edit(user: UserDto): void {
-		this.modalHelper.open(EditUserComponent, { id: user.id }).subscribe(res => this.refresh());
+	editUser(user: UserListDto): void {
+		this.modalHelper.open(CreateOrEditUserComponent, { id: user.id, isEdit: true }).subscribe(res => this.refresh());
+	}
+	editUserPermissions(user: UserListDto): void {
+
+	}
+
+	unlockUser(user: UserListDto): void {
+		let data = new EntityDtoOfInt64();
+		data.id = user.id;
+		this._userService.unlockUser(data)
+			.finally(() => {
+
+			})
+			.subscribe(() => {
+				this.refresh();
+				this.notify.success(this.l('SuccessfullyUnlock'));
+			});
+	}
+
+	deleteUser(user: UserListDto): void {
+		if (user.userName === AppConsts.userManagement.defaultAdminUserName) {
+			this.message.warn(this.l('{0}UserCannotBeDeleted', user.userName));
+			return;
+		}
+		this.message.confirm(
+			this.l('UserDeleteWarningMessage', user.userName),
+			(isConfirmed) => {
+				if (isConfirmed) {
+					this._userService.deleteUser(user.id)
+						.subscribe(() => {
+							this.refresh();
+							this.notify.success(this.l('SuccessfullyDeleted'));
+						});
+				}
+			});
 	}
 }
