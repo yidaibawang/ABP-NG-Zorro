@@ -18,6 +18,8 @@ import { PermissionTreeComponent } from '@shared/permission-tree.component';
 import { CreateOrEditUserComponent } from '@app/pages/users/create-or-edit-user.component';
 import { OrganizationUnitsComponent } from '@app/pages/organization-units/organization-units.component';
 import { OrganizationUnitOnTreeComponent } from '@app/pages/organization-units/organization-tree.component';
+import { OrganizationUnitOnMembersComponent } from '@app/pages/organization-units/organization-unit-members.component';
+
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { OrganizationUnitOnTreeComponent } from '@app/pages/organization-units/o
         PermissionTreeComponent,
         CreateOrEditUserComponent,
         OrganizationUnitsComponent,
-        OrganizationUnitOnTreeComponent
+        OrganizationUnitOnTreeComponent,
+        OrganizationUnitOnMembersComponent
     ],
     entryComponents: [
         CreateOrEditRoleComponent,
