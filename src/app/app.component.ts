@@ -7,6 +7,8 @@ import { MenuItem } from '@shared/layout/menu-item';
 
 import { Abp } from '@abp';
 
+import * as moment from 'moment';
+
 @Component({
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.less']
@@ -27,9 +29,11 @@ export class AppComponent extends AppComponentBase implements OnInit, AfterViewI
 			new MenuItem("app默认", "", "anticon anticon-appstore", "/app/default"),
 			new MenuItem("管理", "", "anticon anticon-appstore", "", [
 				// new MenuItem(this.l("HomePage"), "", "anticon anticon-appstore", "/app/pages/home"),
-				new MenuItem(this.l("Users"), "Pages.Users", "anticon anticon-appstore", "/app/pages/users"),
-				// new MenuItem(this.l("Tenants"), "Pages.Users", "anticon anticon-appstore", "/app/pages/tenants"),
-				new MenuItem(this.l("Roles"), "Pages.Roles", "anticon anticon-appstore", "/app/pages/roles"),
+				new MenuItem(this.l("Users"), "Pages.Administration.Users", "anticon anticon-appstore", "/app/pages/users"),
+				new MenuItem(this.l("Tenants"), "Pages.Tenants", "anticon anticon-appstore", "/app/pages/tenants"),
+				new MenuItem(this.l("Roles"), "Pages.Administration.Roles", "anticon anticon-appstore", "/app/pages/roles"),
+				new MenuItem(this.l("OrganizationUnits"), "Pages.Administration.OrganizationUnits", "anticon anticon-appstore", "/app/pages/organization-units"),
+				new MenuItem("测试", "", "anticon anticon-appstore", "/app/pages/test"),
 				// new MenuItem(this.l("About"), "", "anticon anticon-appstore", "/app/pages/about")
 			]),
 			new MenuItem("ng-alain 示例", "", "anticon anticon-appstore", "", [
