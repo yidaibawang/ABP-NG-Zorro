@@ -535,7 +535,7 @@ export class Abp {
             return;
         }
 
-        console.log(logObject);
+        //console.log(logObject);
     }
 
 
