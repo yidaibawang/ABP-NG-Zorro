@@ -1,0 +1,84 @@
+<nz-card>
+    <ng-template #title>
+        {{l("OrganizationUnitsTree")}}
+    </ng-template>
+    <ng-template #extra>
+        <button nz-button (click)="createNewMember()" [nzType]="'primary'" [nzSize]="'large'">
+            <i class="anticon anticon-plus"></i>
+            <span>{{l('CreateNewMember')}}</span>
+        </button>
+    </ng-template>
+    <nz-table #nzTable [nzDataSource]="dataItems" [nzTotal]="totalItems" [(nzPageIndex)]="pageNumber" [(nzPageSize)]="pageSize"
+        [nzLoading]="loading" [nzShowSizeChanger]="true" (nzPageIndexChange)="refresh()" (nzPageSizeChange)="refresh()">
+        <thead nz-thead>
+            <tr>
+                <th nz-th>
+                    <span>{{l('Actions')}}</span>
+                </th>
+                <th nz-th>
+                    <span>{{l('UserName')}}</span>
+                </th>
+                <th nz-th>
+                    <span>{{l('FullName')}}</span>
+                </th>
+                <th nz-th>
+                    <span>{{l('EmailAddress')}}</span>
+                </th>
+                <th nz-th>
+                    <span>{{l('EmailConfirm')}}</span>
+                </th>
+                <th nz-th>
+                    <span>{{l('IsActive')}}</span>
+                </th>
+                <th nz-th>
+                    <span>{{l('LastLoginTime')}}</span>
+                </th>
+                <th nz-th>
+                    <span>{{l('CreationTime')}}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody nz-tbody>
+            <tr nz-tbody-tr *ngFor="let item of nzTable.data">
+                <td>
+                    <nz-dropdown [nzTrigger]="'click'">
+                        <a href class="ant-dropdown-link" nz-dropdown>
+                            {{l('Actions')}}
+                            <i class="anticon anticon-down"></i>
+                        </a>
+                        <ul nz-menu>
+                            <li nz-menu-item *ngIf="permission.isGranted('Pages.Administration.Users.Impersonation')&&item.id !== appSession.userId">
+                                <a (click)="loginAsThisUser(item)">{{l('LoginAsThisUser')}}</a>
+                            </li>
+                            <li nz-menu-item>
+                                <a (click)="editUser(item)">{{l('Edit')}}</a>
+                            </li>
+                            <li nz-menu-item>
+                                <a (click)="editUserPermissions(item) ">{{l('Permissions')}}</a>
+                            </li>
+                            <li nz-menu-item>
+                                <a (click)="unlockUser(item) ">{{l('Unlock')}}</a>
+                            </li>
+                            <li nz-menu-item>
+                                <a (click)="deleteUser(item) ">{{l('Delete')}}</a>
+                            </li>
+                        </ul>
+                    </nz-dropdown>
+                </td>
+                <td nz-td>{{item.userName}}</td>
+                <td nz-td>{{item.surname}}{{item.name}}</td>
+                <td nz-td>{{item.emailAddress}}</td>
+                <td nz-td>
+                    <nz-badge *ngIf="item.isEmailConfirmed " [nzStatus]=" 'success' " [nzText]="l( 'Yes') "></nz-badge>
+                    <nz-badge *ngIf="!item.isEmailConfirmed " [nzStatus]=" 'default' " [nzText]="l( 'No') "></nz-badge>
+                </td>
+                <td nz-td>
+                    <nz-badge *ngIf="item.isActive " [nzStatus]=" 'success' " [nzText]="l( 'Yes') "></nz-badge>
+                    <nz-badge *ngIf="!item.isActive " [nzStatus]=" 'default' " [nzText]="l( 'No') "></nz-badge>
+                </td>
+                <td nz-td>{{item.lastLoginTime| toDate:'L'}}</td>
+                <td nz-td>{{item.creationTime| toDate:'L'}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

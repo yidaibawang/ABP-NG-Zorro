@@ -1,0 +1,13 @@
+<nz-card>
+    <ng-template #title>
+        {{l("OrganizationUnitsTree")}}
+    </ng-template>
+    <ng-template #extra>
+            <button nz-button (click)="createRootOrganization()" [nzType]="'primary'" [nzSize]="'large'">
+                    <i class="anticon anticon-plus"></i>
+                    <span>{{l('CreateRootOrganization')}}</span>
+                </button>
+    </ng-template>
+    <nz-tree [nzNodes]="nodes" [nzOptions]="options" (nzEvent)="onEvent($event)">
+    </nz-tree>
+</nz-card>
