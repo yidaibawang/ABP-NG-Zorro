@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, ViewEncapsulation } from '@angular/core';
 import { AppComponentBase } from '@shared/component-base';
-import { UserServiceProxy, ChangeUserLanguageDto } from '@shared/service-proxies/service-proxies';
+import { ChangeUserLanguageDto,ProfileServiceProxy } from '@shared/service-proxies/service-proxies';
 
 import { Abp, abp } from '@abp';
 
@@ -33,7 +33,7 @@ export class HeaderI18nComponent extends AppComponentBase implements OnInit {
     
     constructor(
         injector: Injector,
-        private _userService: UserServiceProxy
+        private _profileService:ProfileServiceProxy
     ) {
       super(injector);
     }
@@ -47,7 +47,7 @@ export class HeaderI18nComponent extends AppComponentBase implements OnInit {
         const input = new ChangeUserLanguageDto();
         input.languageName = languageName;
   
-        this._userService.changeLanguage(input).subscribe(() => {
+        this._profileService.changeLanguage(input).subscribe(() => {
             Abp.utils.setCookieValue(
                 'Abp.Localization.CultureName',
                 languageName,
