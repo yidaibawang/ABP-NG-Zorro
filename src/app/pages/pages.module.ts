@@ -11,12 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
-import { CreateRoleComponent } from "./roles/create-role/create-role.component";
-import { EditRoleComponent } from "./roles/edit-role/edit-role.component";
+import { CreateOrEditRoleComponent } from './roles/create-or-edit-role.component'
 import { TenantsComponent } from './tenants/tenants.component';
 import { AboutComponent } from './about/about.component';
-import { EditUserComponent } from './users/edit-user/edit-user.component';
-import { CreateUserComponent } from "./users/create-user/create-user.component";
+import { PermissionTreeComponent } from '@shared/permission-tree.component';
+import { CreateOrEditUserComponent } from '@app/pages/users/create-or-edit-user.component';
+import { OrganizationUnitsComponent } from '@app/pages/organization-units/organization-units.component';
+import { OrganizationUnitOnTreeComponent } from '@app/pages/organization-units/organization-tree.component';
+
 
 @NgModule({
     imports: [
@@ -30,19 +32,18 @@ import { CreateUserComponent } from "./users/create-user/create-user.component";
         HomeComponent,
         UsersComponent,
         RolesComponent,
-        CreateRoleComponent,
-        EditRoleComponent,
         TenantsComponent,
         AboutComponent,
-        EditUserComponent,
-        CreateUserComponent
+        CreateOrEditRoleComponent,
+        PermissionTreeComponent,
+        CreateOrEditUserComponent,
+        OrganizationUnitsComponent,
+        OrganizationUnitOnTreeComponent
     ],
     entryComponents: [
-        CreateRoleComponent,
-        EditRoleComponent,
-        CreateUserComponent,
-        EditUserComponent
+        CreateOrEditRoleComponent,
+        CreateOrEditUserComponent
     ]
 })
 
-export class PagesModule {}
+export class PagesModule { }
