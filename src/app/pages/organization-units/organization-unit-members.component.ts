@@ -4,8 +4,8 @@ import { AppComponentBase, PagedListingComponentBase, PagedRequestDto } from '@s
 
 
 @Component({
-    selector: 'organization-tree',
-    templateUrl: './organization-tree.component.html'
+    selector: 'organization-unit-members',
+    templateUrl: './organization-unit-members.component.html'
 })
 export class OrganizationUnitOnMembersComponent extends PagedListingComponentBase<OrganizationUnitUserListDto> {
     loading = false;
@@ -23,21 +23,21 @@ export class OrganizationUnitOnMembersComponent extends PagedListingComponentBas
     }
     
     protected list(request: PagedRequestDto, pageNumber: number, finishedCallback: Function): void {
-        this.loading=true;
-        this._organizationUnitService.getOrganizationUnitUsers(undefined,undefined,request.maxResultCount,request.skipCount)
-			.finally(() => {
-				finishedCallback();
-				this.loading = false;
-			})
-			.subscribe((result) => {
-				this.dataItems = result.items;
-				//this.showPaging(result, pageNumber);
-			});
-        this.permission.isGranted("");
+        // this.loading=true;
+        // this._organizationUnitService.getOrganizationUnitUsers(undefined,undefined,request.maxResultCount,request.skipCount)
+		// 	.finally(() => {
+		// 		finishedCallback();
+		// 		this.loading = false;
+		// 	})
+		// 	.subscribe((result) => {
+		// 		this.dataItems = result.items;
+		// 		//this.showPaging(result, pageNumber);
+		// 	});
+        // this.permission.isGranted("");
 		//this.appSession.user
     }
     protected delete(entity: OrganizationUnitUserListDto): void {
-        throw new Error("Method not implemented.");
+        // throw new Error("Method not implemented.");
     }
 
 
