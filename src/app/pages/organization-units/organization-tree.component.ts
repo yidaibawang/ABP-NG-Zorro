@@ -9,6 +9,7 @@ import { AppComponentBase } from '@shared/component-base';
 })
 export class OrganizationUnitOnTreeComponent extends AppComponentBase implements OnInit {
     nodes = [];
+    Clicked: Function = null;
 
     options = {
         allowDrag: true,
@@ -30,8 +31,14 @@ export class OrganizationUnitOnTreeComponent extends AppComponentBase implements
     }
 
     onEvent(ev: any) {
-        
+        if (ev.eventName && ev.eventName === "activate") {
+            if (this.Clicked != null) {
+                this.Clicked(ev.node.data.code);
+            }
+        }
     }
+
+
 
     createRootOrganization(): void {
 
