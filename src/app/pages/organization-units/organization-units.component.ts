@@ -21,10 +21,10 @@ export class OrganizationUnitsComponent extends AppComponentBase implements OnIn
     }
 
     ngOnInit(): void {
-        this.ouTree.Clicked = this.OnClicked;
+
     }
 
-    OnClicked(code): void {
+    nodeClicked(code): void {
         console.log(code);
     }
 }
