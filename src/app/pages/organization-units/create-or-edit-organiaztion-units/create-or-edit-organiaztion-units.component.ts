@@ -23,9 +23,6 @@ export interface IOrganizationUnitOnEdit {
 
 export class CreateOrEditOrganiaztionUnitsComponent extends ModalComponentBase implements OnInit, ModalSubjectEvent.OnShow {
 
-
-  @Output() unitCreated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
-  @Output() unitUpdated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
   organizationUnit: IOrganizationUnitOnEdit = {};
 
   active = false;

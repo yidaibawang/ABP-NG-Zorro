@@ -1,3 +1,4 @@
+import { IBasicOrganizationUnitInfo } from './basic-organization-unit-info';
 import { Component, Injector, ViewChild, OnInit } from '@angular/core';
 
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -22,9 +23,5 @@ export class OrganizationUnitsComponent extends AppComponentBase implements OnIn
 
     ngOnInit(): void {
 
-    }
-
-    nodeClicked(code): void {
-        console.log(code);
     }
 }

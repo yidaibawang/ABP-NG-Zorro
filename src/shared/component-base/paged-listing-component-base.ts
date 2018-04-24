@@ -1,19 +1,7 @@
 ﻿import { AppComponentBase } from "./app-component-base";
 import { Injector, OnInit } from '@angular/core';
+import { PagedResultDto, PagedRequestDto } from "@shared/component-base/basic-dtos";
 
-export class PagedResultDto {
-    items: any[];
-    totalCount: number;
-}
-
-export class EntityDto {
-    id: number;
-}
-
-export class PagedRequestDto {
-    skipCount: number;
-    maxResultCount: number;
-}
 
 export abstract class PagedListingComponentBase<EntityDto> extends AppComponentBase implements OnInit {
 

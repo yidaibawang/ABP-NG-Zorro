@@ -20,6 +20,7 @@ import { OrganizationUnitsComponent } from '@app/pages/organization-units/organi
 import { OrganizationUnitOnTreeComponent } from '@app/pages/organization-units/organization-tree.component';
 import { OrganizationUnitOnMembersComponent } from '@app/pages/organization-units/organization-unit-members.component';
 import { CreateOrEditOrganiaztionUnitsComponent } from '@app/pages/organization-units/create-or-edit-organiaztion-units/create-or-edit-organiaztion-units.component';
+import { AddMemberComponent } from '@app/pages/organization-units/add-member/add-member.component';
 
 
 
@@ -43,12 +44,14 @@ import { CreateOrEditOrganiaztionUnitsComponent } from '@app/pages/organization-
         OrganizationUnitsComponent,
         OrganizationUnitOnTreeComponent,
         OrganizationUnitOnMembersComponent,
-        CreateOrEditOrganiaztionUnitsComponent
+        CreateOrEditOrganiaztionUnitsComponent,
+        AddMemberComponent
     ],
     entryComponents: [
         CreateOrEditRoleComponent,
         CreateOrEditUserComponent,
-        CreateOrEditOrganiaztionUnitsComponent
+        CreateOrEditOrganiaztionUnitsComponent,
+        AddMemberComponent
     ]
 })
 

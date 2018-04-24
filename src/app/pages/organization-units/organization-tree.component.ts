@@ -3,8 +3,17 @@ import { OrganizationUnitServiceProxy } from '@shared/service-proxies/service-pr
 import { AppComponentBase } from '@shared/component-base';
 import { ModalHelper } from '@shared/helpers/modal.helper';
 import { CreateOrEditOrganiaztionUnitsComponent } from '@app/pages/organization-units/create-or-edit-organiaztion-units/create-or-edit-organiaztion-units.component';
+import { IBasicOrganizationUnitInfo } from '@app/pages/organization-units/basic-organization-unit-info';
 
-
+export interface IOrganizationUnitOnTree extends IBasicOrganizationUnitInfo {
+    id: number;
+    parent: string | number;
+    code: string;
+    displayName: string;
+    memberCount: number;
+    text: string;
+    state: any;
+}
 @Component({
     selector: 'organization-tree',
     templateUrl: './organization-tree.component.html'
@@ -12,7 +21,7 @@ import { CreateOrEditOrganiaztionUnitsComponent } from '@app/pages/organization-
 export class OrganizationUnitOnTreeComponent extends AppComponentBase implements OnInit {
     nodes = [];
     Clicked: Function = null;
-    @Output() nodeClicked: EventEmitter<string> = new EventEmitter<string>();
+    @Output() nodeClicked: EventEmitter<IBasicOrganizationUnitInfo> = new EventEmitter<IBasicOrganizationUnitInfo>();
     options = {
         allowDrag: true,
         displayField: 'displayName'
@@ -39,12 +48,14 @@ export class OrganizationUnitOnTreeComponent extends AppComponentBase implements
     onEvent(ev: any) {
         if (ev.eventName && ev.eventName === "activate") {
             if (this.nodeClicked != null) {
-                this.nodeClicked.emit(ev.node.data.code);
-                // this.Clicked(ev.node.data.code);
+                this.nodeSelected(ev.node.data);
             }
         }
     }
 
+    nodeSelected(data: IOrganizationUnitOnTree) {
+        this.nodeClicked.emit(data);
+    }
 
 
 

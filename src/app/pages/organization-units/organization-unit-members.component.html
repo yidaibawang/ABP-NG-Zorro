@@ -3,9 +3,9 @@
         {{l("OrganizationUnitsMembers")}}
     </ng-template>
     <ng-template #extra>
-        <button nz-button (click)="createNewMember()" [nzType]="'primary'" [nzSize]="'large'">
+        <button nz-button (click)="addMember()" [nzType]="'primary'" [nzSize]="'large'">
             <i class="anticon anticon-plus"></i>
-            <span>{{l('CreateNewMember')}}</span>
+            <span>{{l('AddMember')}}</span>
         </button>
     </ng-template>
     <nz-table #nzTable [nzDataSource]="dataItems" [nzTotal]="totalItems" [(nzPageIndex)]="pageNumber" [(nzPageSize)]="pageSize"
